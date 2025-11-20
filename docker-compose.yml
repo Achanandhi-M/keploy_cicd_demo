@@ -1,0 +1,32 @@
+version: '3.9'
+services:
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_DB: studentdb1
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"  # Map the PostgreSQL port to the host machine
+    networks:
+      - keploy-network
+
+  app:
+    container_name: fastapi-app
+    image: fastapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+    networks:
+      - keploy-network
+
+networks:
+  keploy-network:
+    external: true
