@@ -27,7 +27,7 @@ jobs:
 
       - name: Make CI script executable
         run: |
-          chmod +x ./github/workflows/python_script.sh
+          chmod +x .github/workflows/python_script.sh
 
       - name: Run Keploy + FastAPI tests
         env:
@@ -35,4 +35,4 @@ jobs:
           # e.g. DATABASE_URL: postgres://...
           PATH: "/usr/local/bin:${PATH}"
         run: |
-          ./github/workflows/python_script.sh
+          .github/workflows/python_script.sh
