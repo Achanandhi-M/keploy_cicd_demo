@@ -15,16 +15,8 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Create venv and install dependencies
-        run: |
-          python -m venv .venv
-          echo "${{ github.workspace }}/.venv/bin" >> $GITHUB_PATH
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
       - name: Keploy Tests
         run: |
           pip install -r requirements.txt
           curl --silent -O -L https://keploy.io/install.sh && source install.sh
-          uvicorn application.main:app --host 0.0.0.0 --port 8000
-
+          keploy test -c "uvicorn application.main:app" --delay 10
