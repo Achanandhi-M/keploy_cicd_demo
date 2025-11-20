@@ -30,9 +30,5 @@ jobs:
           chmod +x .github/workflows/python_script.sh
 
       - name: Run Keploy + FastAPI tests
-        env:
-          # if your app needs any env vars, add here
-          # e.g. DATABASE_URL: postgres://...
-          PATH: "/usr/local/bin:${PATH}"
         run: |
           .github/workflows/python_script.sh
