@@ -12,6 +12,7 @@ services:
       - "5432:5432"  # Map the PostgreSQL port to the host machine
     networks:
       - keploy-network
+        
 
   app:
     container_name: fastapi-app

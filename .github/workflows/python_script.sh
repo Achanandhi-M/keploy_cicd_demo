@@ -9,6 +9,12 @@ echo "root ALL=(ALL:ALL) ALL" | sudo tee -a /etc/sudoers
 # Start the postgres database
 sudo docker compose up -d postgres
 
+echo "=== Docker ps ==="
+sudo docker ps
+
+echo "=== Postgres logs ==="
+sudo docker logs postgres --tail 50 || true
+
 
 # 🔹 Wait for Postgres on localhost:5432 to be ready
 wait_for_postgres() {

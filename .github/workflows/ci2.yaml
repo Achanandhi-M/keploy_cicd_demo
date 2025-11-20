@@ -24,6 +24,10 @@ jobs:
           curl -L https://keploy.io/install.sh | sudo bash
           which keploy
           keploy version || true
+          
+      - name: Create keploy docker network
+        run: |
+          sudo docker network create keploy-network || true
 
       - name: Make CI script executable
         run: |
