@@ -27,7 +27,7 @@ jobs:
 
       - name: Make CI script executable
         run: |
-          chmod +x python_script.sh
+          chmod +x ./python_script.sh
 
       - name: Run Keploy + FastAPI tests
         env:
