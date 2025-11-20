@@ -5,8 +5,6 @@
 
 echo "root ALL=(ALL:ALL) ALL" | sudo tee -a /etc/sudoers
 
-git fetch origin
-git checkout main
 
 # Start the postgres database
 sudo docker compose up -d postgres
