@@ -23,5 +23,5 @@ jobs:
         run: |
           curl --silent -O -L https://keploy.io/install.sh && source install.sh
           # Run the keploy captured tests
-          keploy test -c "uvicorn application.main:app --reload" --delay 10
+          sudo keploy test -c "uvicorn application.main:app --reload" --delay 10
 
