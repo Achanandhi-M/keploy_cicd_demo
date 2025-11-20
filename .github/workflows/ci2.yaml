@@ -1,0 +1,38 @@
+name: Keploy FastAPI Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  keploy-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install Keploy CLI
+        run: |
+          curl -L https://keploy.io/install.sh | sudo bash
+          which keploy
+          keploy version || true
+
+      - name: Make CI script executable
+        run: |
+          chmod +x python_script.sh
+
+      - name: Run Keploy + FastAPI tests
+        env:
+          # if your app needs any env vars, add here
+          # e.g. DATABASE_URL: postgres://...
+          PATH: "/usr/local/bin:${PATH}"
+        run: |
+          ./python_script.sh
