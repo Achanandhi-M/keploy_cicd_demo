@@ -26,5 +26,5 @@ jobs:
         run: |
           pip install -r requirements.txt
           curl --silent -O -L https://keploy.io/install.sh && source install.sh
-          python application/main.py
+          uvicorn application.main:app --host 0.0.0.0 --port 8000
 
