@@ -9,6 +9,24 @@ echo "root ALL=(ALL:ALL) ALL" | sudo tee -a /etc/sudoers
 # Start the postgres database
 sudo docker compose up -d postgres
 
+
+# 🔹 Wait for Postgres on localhost:5432 to be ready
+wait_for_postgres() {
+  echo "Waiting for Postgres on localhost:5432..."
+  for i in {1..30}; do
+    if nc -z localhost 5432 2>/dev/null; then
+      echo "Postgres is up!"
+      return 0
+    fi
+    echo "Postgres not ready yet... retry $i"
+    sleep 2
+  done
+  echo "Postgres did not become ready in time"
+  exit 1
+}
+
+wait_for_postgres
+
 # Install dependencies
 pip3 install -r requirements.txt
 
