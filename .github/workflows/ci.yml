@@ -18,5 +18,6 @@ jobs:
       - name: Keploy Tests
         run: |
           pip install -r requirements.txt
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
           curl --silent -O -L https://keploy.io/install.sh && source install.sh
           sudo keploy test -c "python -m uvicorn application.main:app" --delay 10
