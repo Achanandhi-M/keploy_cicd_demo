@@ -24,8 +24,7 @@ jobs:
 
       - name: Keploy Tests
         run: |
-          curl --silent -O -L https://keploy.io/install.sh && source install.sh
-          # Run the keploy captured tests
           pip install -r requirements.txt
-          sudo keploy test -c "python application/main.py" --delay 10
+          curl --silent -O -L https://keploy.io/install.sh && source install.sh
+          python application/main.py
 
