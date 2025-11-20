@@ -15,9 +15,13 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          echo "PYTHON_BIN=$(which python)" >> $GITHUB_ENV
+
       - name: Keploy Tests
         run: |
-          pip install -r requirements.txt
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
           curl --silent -O -L https://keploy.io/install.sh && source install.sh
-          sudo keploy test -c "python -m uvicorn application.main:app" --delay 10
+          sudo -E keploy test -c "$PYTHON_BIN -m uvicorn application.main:app" --delay 10
