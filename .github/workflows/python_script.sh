@@ -96,7 +96,8 @@ send_request(){
 for i in {1..2}; do
     app_name="flaskApp_${i}"
     send_request &
-    sudo -E env PATH="$PATH" $RECORD_BIN record -c "python -m uvicorn application.main:app"  &> "${app_name}.txt"
+    sudo -E env PATH="$PATH" $RECORD_BIN record -c "python -m uvicorn application.main:app" 2>&1 | tee "${app_name}.txt"
+
     if grep "ERROR" "${app_name}.txt"; then
         echo "Error found in pipeline..."
         cat "${app_name}.txt"
@@ -118,7 +119,8 @@ sudo docker compose down
 echo "Postgres stopped - Keploy should now use mocks for database interactions"
 
 # Testing phase
-sudo -E env PATH="$PATH" $REPLAY_BIN test -c "python -m uvicorn application.main:app" --delay 10 &> test_logs.txt
+sudo -E env PATH="$PATH" $REPLAY_BIN test -c "python -m uvicorn application.main:app" --delay 10 2>&1 test_logs.txt
+
 
 if grep "ERROR" "test_logs.txt"; then
         echo "Error found in pipeline..."
